@@ -13,12 +13,13 @@ function BookCreate({ OnCreate }) {
     SetInput(""); // makes empty input
   };
   return (
-    <div>
+    <div className="book-create">
+      <h3> Add a Book</h3>
       <form onSubmit={handleSubmit}>
         <label> Title</label>
-        <input value={input} onChange={handleChange} />{" "}
+        <input className="input" value={input} onChange={handleChange} />{" "}
         {/* connecting input with event*/}
-        <button> Create</button>
+        <button className="button"> Create</button>
       </form>
     </div>
   );
