@@ -20,6 +20,7 @@ function BookCreate({ OnCreate }) {
         <input className="input" value={input} onChange={handleChange} />{" "}
         {/* connecting input with event*/}
         <button className="button"> Create</button>
+        <button className="button"> Create</button>
       </form>
     </div>
   );
