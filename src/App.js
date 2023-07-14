@@ -3,7 +3,20 @@ import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 
 function App() {
-  const [books, setBooks] = useState([]); // empty array to make use of book create to add to array
+  const [books, setBooks] = useState([]);
+  const editBookById = (id, newTitle) => {
+    // function to update object
+    const updatedBooks = books.map((book) => {
+      // maps through each book
+      if (book.id === id) {
+        /// if books is equL to id then
+        return { ...book, title: newTitle }; // return rest of book and new title
+      }
+      return book; // if doesnt equal to book or title then just returns book
+    });
+    setBooks(updatedBooks);
+  };
+
   const deleteBookById = (id) => {
     const updatedBooks = books.filter((book) => {
       // filter creates new array
@@ -22,7 +35,12 @@ function App() {
 
   return (
     <div className="app">
-      <BookList books={books} onDelete={deleteBookById} />{" "}
+      <h1>Reading titles</h1>
+      <BookList
+        onEdit={editBookById}
+        books={books}
+        onDelete={deleteBookById}
+      />{" "}
       {/* onDelete prop to delete items and be passed to booklist*/}
       {/* shows component then adds prop, which communicates down to bookList*/}
       <BookCreate OnCreate={createBook} />
