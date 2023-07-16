@@ -7,6 +7,7 @@ function App() {
   const editBookById = (id, newTitle) => {
     // function to update object
     const updatedBooks = books.map((book) => {
+      //
       // maps through each book
       if (book.id === id) {
         /// if books is equL to id then
