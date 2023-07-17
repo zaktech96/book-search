@@ -1,0 +1,38 @@
+
+### gets all books
+GET http://localhost:3001/books HTTP/1.1
+Content-Type: application/json 
+
+// makes get request to apply http and header of type Content
+
+// rest client has button send Request]
+
+### creates book
+POST http://localhost:3001/books HTTP/1.1
+Content-Type: application/json 
+
+{
+    "title":"Harry potter"
+}
+
+// adds in object using key and value
+
+### updates books
+PUT  http://localhost:3001/books/1 HTTP/1.1
+Content-Type: application/json 
+
+{
+    "title":"Dark tower"
+}
+
+// updates item, need to add 1 after books to get id 
+// id number after book changes value
+
+### deletes book
+DELETE   http://localhost:3001/books/1 HTTP/1.1
+Content-Type: application/json 
+
+# {
+#     "title":"Dark tower"
+# }
+

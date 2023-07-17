@@ -1,11 +1,23 @@
 import { useState } from "react";
+import axios from "axios";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
+import { useEffect } from "react";
 
 function App() {
   const [books, setBooks] = useState([]);
+  const fetchBooks = async () => {
+    // used make request to fetch all books
+    const response = await axios.get(" http://localhost:3001/books");
+    setBooks(response.data); // updates data using state
+  };
+
+  useEffect(() => {
+    // callback function to be executed after tcomponent renders
+    fetchBooks(); // Call the fetchBooks() function to fetch books from an external source
+  }, []); // The empty dependency array ensures the effect runs only once, after the initial component mount
+  // function to update object
   const editBookById = (id, newTitle) => {
-    // function to update object
     const updatedBooks = books.map((book) => {
       //
       // maps through each book
@@ -25,15 +37,19 @@ function App() {
     });
     setBooks(updatedBooks);
   };
-  const createBook = (title) => {
-    const updatedBooks = [
-      ...books,
-      { id: Math.round(Math.random() * 9), title },
-    ]; // ID and key set, doing title:title same as title
-    // math.round to round up value from random number timed by 9 to generate id number
-    setBooks(updatedBooks);
-  }; // in argument shows what user puts in ,inside brackers
+  const createBook = async (title) => {
+    const response = await axios.post("http://localhost:3001/books", {
+      title,
+    });
 
+    const updatedBooks = [
+      ...books, // takes all books and adds to arry
+      response.data, // to the end add response of data
+    ];
+
+    setBooks(updatedBooks);
+    // in argument shows what user puts in ,inside brackers
+  };
   return (
     <div className="app">
       <h1>Reading titles</h1>
