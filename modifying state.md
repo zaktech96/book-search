@@ -73,4 +73,4 @@ To remove elements using the `filter` method:
   This creates a new array (`filteredAnimals`) that includes all elements from `animals` except for "cat".
 
 These simplified notes provide a breakdown of how to modify state in arrays and objects, including adding elements and filtering elements using the `filter` method.
-request
+r
