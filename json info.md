@@ -55,5 +55,3 @@ const deleteBookById = async (id) => {
     here showing to delete books using async/await with axios to send rdelete request
 
 ````
-
-request
