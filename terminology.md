@@ -47,3 +47,62 @@
      When the second argument is omitted or not provided, the effect will run after every render.
 
 These notes provide an overview of the useEffect function, its usage, and the considerations for using it effectively in React components.
+
+### Context
+
+context system is used share through components even if they dont have a direct link
+
+can share any data such as numbers,string or objects having more info inside it
+
+can use context to use specfic information such as list of books getting back array of books
+
+steps of using context
+
+1. create context
+2. specify data thats being shared
+3. cosume data in a component
+   context doesnt replace props or redux
+
+to create context, this being step 1
+
+```js
+import { createContext } from "react";
+const BookContext = createContext();
+```
+
+the BookContext, can be any name is the provider and consumer
+
+two properites used in bookcontext variable
+provider -> component used to define which data i want to share
+
+consumer -> gets access to data not often used
+
+step 2
+<BookContext.Provider value={5}>value prop is unqiye, will be shared with rest of app,data that is shared is 5 in this case
+<MyComponent/> component can access value shared in context
+</BookContext.Provider>
+
+usually put provider at top of file,
+then value prop will become access to rest of app
+
+step 3
+
+```js
+import { useContext } from "react";
+// function to access value in context
+import BookContext from "./book"; // context objject
+
+function MyComponent() {
+  const num = useContrxt(BookContext);
+  // num is value stored in context -5
+  return <div>{num}</div>;
+}
+```
+
+in index.js added books context.provider into the root render to render to the app
+
+to note can add more than one element
+
+Provider will be used twice in order to add in state to update value
+
+will create new component to store state

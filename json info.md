@@ -44,3 +44,14 @@ Handling asynchronous errors: We can use a try/catch block to handle errors that
 These organized notes provide a step-by-step guide on setting up and using JSON Server for a project, including creating the `db.json` file, running the server, making requests, and using axios for request handling in a React application.
 
 in data object contains new id with title when editing booj
+
+when ever making request using async and await with axios template below
+
+````js
+const deleteBookById = async (id) => {
+    await axios.delete(`http://localhost:3001/books/${id}`);
+
+    ```
+    here showing to delete books using async/await with axios to send rdelete request
+
+````
