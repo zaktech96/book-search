@@ -30,7 +30,7 @@ function App() {
       // maps through each book
       if (book.id === id) {
         /// if books is equL to id then
-        return { ...book, title: newTitle }; // return rest of book and new title
+        return { ...book, ...response.data }; // instead of updating using title, using response.data takes properites of object with key data and add to new object
       }
       return book; // if doesnt equal to book or title then just returns book
     });
