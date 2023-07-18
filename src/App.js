@@ -12,13 +12,21 @@ function App() {
   };
 
   useEffect(() => {
-    // callback function to be executed after tcomponent renders
+    // callback function to be executed after component renders
     fetchBooks(); // Call the fetchBooks() function to fetch books from an external source
   }, []); // The empty dependency array ensures the effect runs only once, after the initial component mount
+  //empty array saying call after first render then never again
   // function to update object
-  const editBookById = (id, newTitle) => {
+
+  const editBookById = async (id, newTitle) => {
+    // async code for making request with await
+    const response = await axios.put(`http://localhost:3001/books/${id}`, {
+      // to add id, usimg template literal
+      title: newTitle,
+    });
+    console.log(response);
+
     const updatedBooks = books.map((book) => {
-      //
       // maps through each book
       if (book.id === id) {
         /// if books is equL to id then
