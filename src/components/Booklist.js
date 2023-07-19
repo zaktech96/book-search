@@ -5,7 +5,8 @@ import BookShow from "./BookShow";
 function BookList({ books, onDelete, onEdit }) {
   // destructuring array to receive prop
 
-  const value = useContext(BooksContext); // to show context in file
+  const { count, incrementCount } = useContext(BooksContext); // destrutying array to access count and IncrementCount prop
+  // count  is number,IncrementCount is function to call
   const CheckingBook = books.map((book) => {
     // maps over array
     return (
@@ -17,7 +18,8 @@ function BookList({ books, onDelete, onEdit }) {
   return (
     <div className="book-list">
       {CheckingBook}
-      {value} {/* shows context*/}
+      <button onClick={incrementCount}>Click Button</button>
+      {count}
     </div>
   );
 }

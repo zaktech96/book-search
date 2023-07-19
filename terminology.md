@@ -48,61 +48,104 @@
 
 These notes provide an overview of the useEffect function, its usage, and the considerations for using it effectively in React components.
 
+Certainly! I will add comments next to the code snippets to provide explanatory notations. Here's the updated version of the notes with the added comments:
+
 ### Context
 
-context system is used share through components even if they dont have a direct link
+Context system is used to share data through components even if they don't have a direct link. It allows for sharing any type of data, such as numbers, strings, or objects, even if they have more complex information within them. Context can be utilized to provide specific information, like a list of books or an array of books, to components. However, it's important to note that context doesn't replace the usage of props or Redux; it serves a different purpose.
 
-can share any data such as numbers,string or objects having more info inside it
+### Steps of using context:
 
-can use context to use specfic information such as list of books getting back array of books
+1. **Create context:**
 
-steps of using context
+   ```js
+   import { createContext } from "react";
+   const BookContext = createContext();
+   ```
 
-1. create context
-2. specify data thats being shared
-3. cosume data in a component
-   context doesnt replace props or redux
+   // Create a new context using the `createContext` function from React. `BookContext` will be the context object used as the provider and consumer.
 
-to create context, this being step 1
+2. **Specify data to be shared:**
 
-```js
-import { createContext } from "react";
-const BookContext = createContext();
-```
+   ```js
+   <BookContext.Provider value={5}>
+     {/* Rest of your app */}
+   </BookContext.Provider>
+   ```
 
-the BookContext, can be any name is the provider and consumer
+   // Wrap your app or the relevant portion of it with the `Provider` component. The `value` prop is used to specify the unique data that will be shared with the rest of the app. In this example, the shared data is `5`.
 
-two properites used in bookcontext variable
-provider -> component used to define which data i want to share
+3. **Consume data in a component:**
 
-consumer -> gets access to data not often used
+   ```js
+   import { useContext } from "react";
+   import BookContext from "./book"; // Assuming this is the correct import for your context
 
-step 2
-<BookContext.Provider value={5}>value prop is unqiye, will be shared with rest of app,data that is shared is 5 in this case
-<MyComponent/> component can access value shared in context
-</BookContext.Provider>
+   function MyComponent() {
+     const num = useContext(BookContext);
+     // The `num` variable will store the value stored in the context, which is `-5` in this example
+     return <div>{num}</div>;
+   }
+   ```
 
-usually put provider at top of file,
-then value prop will become access to rest of app
+   // Use the `useContext` hook to access the shared data within a component. Pass the `BookContext` object as an argument to `useContext`. The component can now access the shared data, which is `-5` in this example.
 
-step 3
+4. **Create a provider component to update the shared value:**
 
-```js
-import { useContext } from "react";
-// function to access value in context
-import BookContext from "./book"; // context objject
+   ```js
+   import React, { useState } from "react";
+   import { BookContext } from "./book"; // Assuming this is the correct import for your context
 
-function MyComponent() {
-  const num = useContrxt(BookContext);
-  // num is value stored in context -5
-  return <div>{num}</div>;
-}
-```
+   function BookProvider({ children }) {
+     const [valueToShare, setValueToShare] = useState(5);
 
-in index.js added books context.provider into the root render to render to the app
+     const incrementCount = () => {
+       setValueToShare((prevValue) => prevValue + 1);
+     };
 
-to note can add more than one element
+     return (
+       <BookContext.Provider value={valueToShare}>
+         {/* The context provider will be shared with the rest of the app */}
+         {children}
+         {/* Render the children components */}
+         <button onClick={incrementCount}>Increment Count</button>
+       </BookContext.Provider>
+     );
+   }
 
-Provider will be used twice in order to add in state to update value
+   export { BookProvider };
+   ```
 
-will create new component to store state
+   // Create a provider component, `BookProvider` in this case, to manage the state of the shared value. In this example, the shared value starts at `5`, and there's a button that increments the value when clicked. The updated value is then provided to the context, causing the provider component and its children to re-render with the new value.
+
+5. **Wrap your app with the provider component in `index.js`:**
+
+   ```js
+   import React from "react";
+   import ReactDOM from "react-dom";
+   import App from "./App";
+   import { BookProvider } from "./context/books";
+
+   ReactDOM.render(
+     <BookProvider>
+       {/* Just need to pass the provider here */}
+       <App />
+     </BookProvider>,
+     document.getElementById("root")
+   );
+   ```
+
+   // Wrap your entire app with the provider component, in this case, `BookProvider`. This allows the shared value and its state management to be available to all components within the app.
+
+Please let me know if you need any further clarification or have any additional questions.
+
+summary of the notes related to using context providers:
+
+- The provider in context contains information and has internal state to update the value.
+- The provider is created using the `<BooksContext.Provider>` component.
+- The `value` prop of the provider allows you to pass data or functions to update the data.
+- Typically, an object is used to encapsulate the data and update functions.
+- In the example provided, the value is represented as an object containing `count` and `incrementCount`.
+- Child components can access these properties and use them to change the value stored in the context.
+
+Please let me know if there's anything else I can help you with.
