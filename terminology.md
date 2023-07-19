@@ -223,3 +223,5 @@ const {books} = useBookContext()
 ```
 
 as seen here can reuse the context inside the second function
+
+now added function to a seperate file to stop using two imports

@@ -1,27 +1,23 @@
-import { useContext } from "react"; // Imports context
-import BooksContext from "../context/books"; // imports bookscontext file
+// import { useContext } from "react"; // Imports context
+// import BooksContext from "../context/books"; // imports bookscontext file
 import BookShow from "./BookShow";
+import useBooksContext from "../hooks/use-hooks";
 
-function BookList({ books, onDelete, onEdit }) {
+function BookList() {
+  // deleted props not needed
+  const { books } = useBooksContext(); // makes use of context hook and reaches for books, bracket important to map through
   // destructuring array to receive prop
+  // now calling function from use hooks file instead of showing here
 
-  const { count, incrementCount } = useContext(BooksContext); // destrutying array to access count and IncrementCount prop
+  // const { count, incrementCount } = useContext(BooksContext); // destrutying array to access count and IncrementCount prop
   // count  is number,IncrementCount is function to call
   const CheckingBook = books.map((book) => {
     // maps over array
-    return (
-      <BookShow onEdit={onEdit} onDelete={onDelete} key={book.id} book={book} />
-    );
+    return <BookShow key={book.id} book={book} />;
     // shows component, assigns id and key
     //taken out onedit
   });
-  return (
-    <div className="book-list">
-      {CheckingBook}
-      <button onClick={incrementCount}>Click Button</button>
-      {count}
-    </div>
-  );
+  return <div className="book-list">{CheckingBook}</div>;
 }
 
 export default BookList;
