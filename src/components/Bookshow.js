@@ -1,21 +1,24 @@
 import { useState } from "react";
 import BookEdit from "./BookEdit";
+import useBooksContext from "../hooks/use-hooks";
 
-function BookShow({ book, onDelete, onEdit }) {
+function BookShow({ book }) {
   const [edit, showEdit] = useState(false);
+  const { deleteBookById } = useBooksContext(); // typo error caused issue, using use hook file to get bookcontext
 
   const handleDeleteClick = () => {
-    onDelete(book.id);
+    deleteBookById(book.id); // pass new function which reaches to context to get function
   };
 
   const handleEditClick = () => {
     showEdit(!edit); //   / !Showedit = not edit for when editing to return boolean value
   };
 
-  const handleSubmit = (id, newTitle) => {
+  const handleSubmit = () => {
     // recieves id and title to communicate it back up
     showEdit(false); // made mistake with naming state incorrectly
-    onEdit(id, newTitle); // recieves title and id and passes it back up
+    // onEdit(id, newTitle); // recieves title and id and passes it back up
+    // will rely on book edit component id which is EditBookById which calles editId
   };
 
   let content = <h3>{book.title}</h3>; // let to change variable overtime
@@ -24,7 +27,9 @@ function BookShow({ book, onDelete, onEdit }) {
     content = <BookEdit onSubmit={handleSubmit} book={book} />;
     // if true will book edit component
     // now passing down book as prop to BookEdit
-  }
+    // when showing book edit, still need to pass down on submit function
+    // as bookShow component requries to understand when it should set when shown
+  } // so still need to pass down handle submit as prop
   return (
     <div className="book-show">
       <img

@@ -1,7 +1,11 @@
-import { useState } from "react"; // state to update input for title
+import { useState } from "react";
+import useBooksContext from "../hooks/use-hooks";
+// error made from importing Bookscontext
 
-function BookCreate({ OnCreate }) {
+function BookCreate() {
   const [input, SetInput] = useState("");
+  const { createBook } = useBooksContext(); // gives access of createBook from context
+  // using use hook file to call function
 
   const handleChange = (event) => {
     // inside ()to track when user change
@@ -9,7 +13,7 @@ function BookCreate({ OnCreate }) {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    OnCreate(input);
+    createBook(input); // call createBOOK function from context
     SetInput(""); // makes empty input
   };
   return (
